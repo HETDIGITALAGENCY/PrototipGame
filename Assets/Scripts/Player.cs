@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,16 @@ public class Player : MonoBehaviour
     private bool _canDash = true;
     private bool _isDashing = false;
     private float _dashPower = 8f;
-    private float _dashingTime = 1f; // Þimdilik
-    private float _dashingCooldown = 1f; // Þimdilik
+    private float _dashingTime = 1f; // ï¿½imdilik
+    private float _dashingCooldown = 1f; // ï¿½imdilik
     private bool _isFacingRight = true;
+    private AudioManager audioManager; //devamÄ± gelicek E
+
+  private void Awake()
+  {
+      audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>(); // ben ekledim devamÄ± gelicek E
+
+  }
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _groundCheck;
@@ -35,7 +43,7 @@ public class Player : MonoBehaviour
         }
             if (_isDashing == true)
             {
-                // Animasyon burada baþlar
+                // Animasyon burada baï¿½lar
             }
             else
             {
@@ -92,3 +100,5 @@ public class Player : MonoBehaviour
         }
     }
 }
+
+
