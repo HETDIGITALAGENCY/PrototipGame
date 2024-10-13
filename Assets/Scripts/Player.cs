@@ -17,15 +17,17 @@ public class Player : MonoBehaviour
     private bool _isFacingRight = true;
     private AudioManager audioManager; //devamı gelicek E
 
-  private void Awake()
-  {
-      audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>(); // ben ekledim devamı gelicek E
-
-  }
-
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
+
+    private void Awake()
+    {
+      audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>(); // ben ekledim devamı gelicek E
+
+    }
+
+    
 
     private void Update()
     {
