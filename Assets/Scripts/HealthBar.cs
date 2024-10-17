@@ -32,10 +32,10 @@ public class HealthBar : MonoBehaviour
           //  EaseHealthSlider.value = Math.Lerp(EaseHealthSlider.value, Health, LerpSpeed);
         //}
 
-        void TakeDamage(float damage)
+        /*void TakeDamage(float damage)
         {
-            Health -= damage;
-        }
+            Health -= damage;   // Bu kodun burda iþi yok take damage kodlarý damageý alacak objenin scriptine yazýlýr. Emirhan
+        }*/
         
     }
 }

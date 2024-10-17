@@ -6,6 +6,11 @@ using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
+    public int attackDamage = 10;
+    public float attackRate;
+    public int maxHealth = 100;
+    public int currentHealth;
+
     private float _horizontal;
     private float _speed = 6f;
     private float _jumpPower = 10f;
@@ -15,20 +20,29 @@ public class Player : MonoBehaviour
     private float _dashingTime = 1f; // �imdilik
     private float _dashingCooldown = 1f; // �imdilik
     private bool _isFacingRight = true;
+    private float _attackRange = 0.5f;
+    private float _nextAttackTime = 0f;
+
     private AudioManager audioManager; //devamı gelicek E
 
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private LayerMask _attackLayer;
 
     private void Awake()
     {
       audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>(); // ben ekledim devamı gelicek E
+        // kanka bunun daha optimize bi yolu yok mudur. Emirhan 
 
     }
 
-    
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
     private void Update()
     {
         if (_isDashing)
@@ -51,6 +65,15 @@ public class Player : MonoBehaviour
             {
                 // Animasyon burada durur
             }
+
+        if (Time.time >= _nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+                _nextAttackTime = Time.time + 1f / attackRate;
+            }
+        }
         Flip();
     }
     private void FixedUpdate()
@@ -101,6 +124,26 @@ public class Player : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+    private void Attack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _attackLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<Ai_Enemy>().TakeDamage(attackDamage);
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (_attackPoint == null)
+        {
+            return;
+        }
+
+        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+    }
 }
-
-

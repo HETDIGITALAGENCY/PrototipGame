@@ -9,8 +9,8 @@ public class FollowCam : MonoBehaviour
     private Vector3 _velocity = Vector3.zero;
     private float _zoom;
     private float _zoomMultipler = 4f;
-    private float _minZoom = 2f;
-    private float _maxZoom = 8f;
+    private float _minZoom = 7f;
+    private float _maxZoom = 13f;
     private float _zoomVelocity = 0f;
 
     [SerializeField] private Transform _target;
